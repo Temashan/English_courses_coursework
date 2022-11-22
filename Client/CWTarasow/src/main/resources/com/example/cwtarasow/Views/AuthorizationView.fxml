@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="472.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cwtarasow.Controllers.AuthorizationViewController">
+   <children>
+      <AnchorPane layoutX="48.0" layoutY="120.0" prefHeight="232.0" prefWidth="465.0" style="-fx-border-radius: 10; -fx-border-color: #a8a8a8; -fx-border-width: 5; -fx-background-color: #e8e8e8;">
+         <children>
+            <TextField fx:id="loginInput" layoutX="120.0" layoutY="70.0" prefHeight="26.0" prefWidth="225.0" promptText="Логин" />
+            <PasswordField fx:id="passwordInput" layoutX="119.0" layoutY="117.0" prefHeight="26.0" prefWidth="226.0" promptText="Пароль" />
+            <Button layoutX="181.0" layoutY="161.0" mnemonicParsing="false" onAction="#onBnClickAuthorization" prefHeight="26.0" prefWidth="102.0" text="Вход" />
+            <Label alignment="CENTER" layoutX="161.0" layoutY="22.0" prefHeight="30.0" prefWidth="143.0" text="Авторизация">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="461.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBnClickRegistration" prefHeight="6.0" prefWidth="86.0" text="Регистрация">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

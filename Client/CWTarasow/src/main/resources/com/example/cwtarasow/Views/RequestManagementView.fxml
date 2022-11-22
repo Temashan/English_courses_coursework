@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="875.0" style="-fx-background-color: #ffffff;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cwtarasow.Controllers.RequestManagementViewController">
+    <children>
+        <TableView fx:id="tableRecords" layoutX="14.0" layoutY="14.0" prefHeight="663.0" prefWidth="652.0" style="-fx-background-color: #c8c8c8;" stylesheets="@styles.css" />
+        <Button fx:id="btnGoBack" layoutX="780.0" layoutY="651.0" mnemonicParsing="false" onAction="#onBnClickGoBack" prefHeight="26.0" prefWidth="80.0" text="Вернуться" />
+        <Button layoutX="710.0" layoutY="31.0" mnemonicParsing="false" onAction="#onBnClickApply" prefHeight="26.0" prefWidth="118.0" text="Одобрить" />
+        <Button layoutX="710.0" layoutY="71.0" mnemonicParsing="false" onAction="#onBnClickDiscard" prefHeight="26.0" prefWidth="118.0" text="Отклонить" />
+    </children>
+</AnchorPane>

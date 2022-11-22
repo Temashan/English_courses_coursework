@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="472.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cwtarasow.Controllers.RegistrationViewController">
+    <children>
+        <AnchorPane layoutX="47.0" layoutY="62.0" prefHeight="347.0" prefWidth="466.0" style="-fx-border-radius: 10; -fx-border-color: #a8a8a8; -fx-border-width: 5; -fx-background-color: #e8e8e8;">
+            <children>
+                <TextField fx:id="loginInput" layoutX="120.0" layoutY="70.0" prefHeight="26.0" prefWidth="225.0" promptText="Логин" />
+                <PasswordField fx:id="passwordInput" layoutX="119.0" layoutY="104.0" prefHeight="26.0" prefWidth="226.0" promptText="Пароль" />
+                <Button layoutX="180.0" layoutY="298.0" mnemonicParsing="false" onAction="#onBnClickEnter" prefHeight="26.0" prefWidth="102.0" text="Ввод" />
+                <Label alignment="CENTER" layoutX="161.0" layoutY="22.0" prefHeight="30.0" prefWidth="143.0" text="Регистрация">
+               <font>
+                  <Font size="22.0" />
+               </font></Label>
+            <PasswordField fx:id="repeatPasswordInput" layoutX="119.0" layoutY="137.0" prefHeight="26.0" prefWidth="226.0" promptText="Подтвердите пароль" />
+            <TextField fx:id="mailInput" layoutX="120.0" layoutY="179.0" prefHeight="26.0" prefWidth="225.0" promptText="Эл. почта" />
+            <TextField fx:id="fioInput" layoutX="119.0" layoutY="255.0" prefHeight="26.0" prefWidth="225.0" promptText="ФИО" />
+            <ComboBox fx:id="countryComboBox" layoutX="119.0" layoutY="215.0" prefHeight="26.0" prefWidth="226.0" promptText="Страна" />
+            </children>
+        </AnchorPane>
+      <Button onAction="#onBnClickGoBack" layoutX="7.0" layoutY="2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" text="&lt;-" />
+    </children>
+</AnchorPane>
