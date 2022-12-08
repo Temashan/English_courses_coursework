@@ -3,8 +3,7 @@ package serverEndPoint.threads;
 import commands.Command;
 import commands.CommonCommand;
 import dbInteration.DataManager;
-import entities.User;
-import entities.UserType;
+import entities.*;
 import responses.Response;
 import serverEndPoint.ConnectedClientInfo;
 
@@ -54,10 +53,7 @@ public class ClientProcessingThread extends Thread {
         while (true) {
             try {
                 switch (clientLobby()) {
-                    case ADMIN -> {
-                        adminProcessing();
-                    }
-                    case USER -> {
+                    case USER, ADMIN -> {
                         clientProcessing();
                     }
                 }
@@ -129,25 +125,138 @@ public class ClientProcessingThread extends Thread {
         }
     }
 
-    private void adminProcessing() throws IOException, ClassNotFoundException {
+    private void clientProcessing() throws IOException, ClassNotFoundException {
 
-        while (true){
+        while (true) {
             Command command = receiveObject();
             switch (command) {
                 case EXIT -> {
                     return;
                 }
-            }
-        }
-    }
+                case GET_ALL_COURSES -> {
+                    try {
+                        var courses = dataManager.courses.getAll();
+                        sendObject(new ArrayList<>(courses));
+                    } catch (SQLException e) {
+                        sendObject(new ArrayList<>());
+                    }
+                }
+                case CREATE_COURSE -> {
+                    Course course = receiveObject();
+                    try {
+                        dataManager.courses.create(course);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case EDIT_COURSE -> {
+                    Course course = receiveObject();
+                    try {
+                        dataManager.courses.update(course);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case DELETE_COURSE -> {
+                    int courseId = receiveObject();
+                    try {
+                        dataManager.courses.delete(courseId);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case GET_ALL_USERS_WHO_HAS_COURSE -> {
+                    int courseId = receiveObject();
+                    try {
+                        var users = dataManager.users.getUsersHasCourse(courseId);
+                        sendObject(new ArrayList<>(users));
+                    } catch (SQLException e) {
+                        sendObject(new ArrayList<>());
+                    }
+                }
+                case GET_ALL_COURSE_TOPICS -> {
+                    int courseId = receiveObject();
+                    try {
+                        var topics = dataManager.coursesTopics.getCourseTopics(courseId);
+                        sendObject(new ArrayList<>(topics));
+                    } catch (SQLException e) {
+                        sendObject(new ArrayList<>());
+                    }
+                }
+                case GET_USERS_WHO_PASSED_TOPIC -> {
+                    int topicId = receiveObject();
+                    try {
+                        var users = dataManager.users.getUsersPassedTopic(topicId);
+                        sendObject(new ArrayList<>(users));
+                    } catch (SQLException e) {
+                        sendObject(new ArrayList<>());
+                    }
+                }
+                case CREATE_TOPIC -> {
 
-    private void clientProcessing() throws IOException, ClassNotFoundException {
-
-        while (true){
-            Command command = receiveObject();
-            switch (command) {
-                case EXIT -> {
-                    return;
+                    CourseTopic topic = receiveObject();
+                    try {
+                        dataManager.coursesTopics.create(topic);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case EDIT_TOPIC -> {
+                    CourseTopic topic = receiveObject();
+                    try {
+                        dataManager.coursesTopics.update(topic);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case DELETE_TOPIC -> {
+                    int topicId = receiveObject();
+                    try {
+                        dataManager.coursesTopics.delete(topicId);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case GET_USER_PROFILE -> {
+                    int userId = receiveObject();
+                    try {
+                        dataManager.profiles.getByUserId(userId);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case GET_ALL_USERS -> {
+                    try {
+                        var users = dataManager.users.getAll();
+                        sendObject(new ArrayList<>(users));
+                    } catch (SQLException e) {
+                        sendObject(new ArrayList<>());
+                    }
+                }
+                case UPDATE_USER_PROFILE -> {
+                    Profile profile = receiveObject();
+                    try {
+                        dataManager.profiles.update(profile);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
+                }
+                case CREATE_USER_PROFILE -> {
+                    Profile profile = receiveObject();
+                    try {
+                        dataManager.profiles.create(profile);
+                        sendObject(Response.SUCCESSFULLY);
+                    } catch (SQLException e) {
+                        sendObject(Response.ERROR);
+                    }
                 }
             }
         }

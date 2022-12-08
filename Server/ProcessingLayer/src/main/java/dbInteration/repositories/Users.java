@@ -17,14 +17,14 @@ public class Users {
         this.dbConnection = dbConnection;
     }
 
-    private User convertResultSetToSingleObj(ResultSet resultSet) throws SQLException {
+    public static User convertResultSetToSingleObj(ResultSet resultSet) throws SQLException {
 
         resultSet.beforeFirst();
         if (!resultSet.next()) return new User();
         return convertResultSetToObj(resultSet);
     }
 
-    private User convertResultSetToObj(ResultSet resultSet) throws SQLException {
+    private static User convertResultSetToObj(ResultSet resultSet) throws SQLException {
 
         var obj = new User();
         if (!resultSet.isAfterLast()) {
@@ -41,7 +41,7 @@ public class Users {
         return obj;
     }
 
-    private List<User> convertResultSetToList(ResultSet resultSet) throws SQLException {
+    public static List<User> convertResultSetToList(ResultSet resultSet) throws SQLException {
 
         var list = new ArrayList<User>();
         resultSet.beforeFirst();
@@ -128,6 +128,27 @@ public class Users {
         var statement = dbConnection.prepareStatement(
                 "SELECT * FROM users;",
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        statement.executeQuery();
+        return convertResultSetToList(statement.getResultSet());
+    }
+
+    public List<User> getUsersPassedTopic(int topicId) throws SQLException {
+
+        var statement = dbConnection.prepareStatement(
+                "SELECT * FROM users join user_passed_topics upt on users.id = upt.userId where topicId = ?;",
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        statement.setInt(1, topicId);
+        statement.executeQuery();
+        return convertResultSetToList(statement.getResultSet());
+    }
+
+    public List<User> getUsersHasCourse(int courseId) throws SQLException {
+
+        var statement = dbConnection.prepareStatement(
+                "SELECT * FROM courses join user_courses uc on courses.id = uc.courseId" +
+                        " join users u on u.id = uc.userId where courseId = ?;",
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        statement.setInt(1, courseId);
         statement.executeQuery();
         return convertResultSetToList(statement.getResultSet());
     }

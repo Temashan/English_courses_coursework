@@ -28,18 +28,13 @@ public class AuthorizationViewController {
 
         try {
 
-            var userType = ConnectionModule.singUp(login, password);
-            switch (userType) {
-                case UNDEFINED -> {
-                    AlertManager.showErrorAlert("Пользователь не найден!", "");
-                }
-                case USER -> {
-                    CWApplication.viewLoader.setSceneToStage(ViewLoader.Views.main, "Курсы");
-                }
-                case ADMIN -> {
-                    CWApplication.viewLoader.setSceneToStage(ViewLoader.Views.main, "Курсы");
-                }
-            }
+            CWApplication.userType = ConnectionModule.singUp(login, password);
+           if(CWApplication.userType == UserType.UNDEFINED) {
+               AlertManager.showErrorAlert("Пользователь не найден!", "");
+               return;
+           }
+
+            CWApplication.viewLoader.setSceneToStage(ViewLoader.Views.main, "Курсы");
 
         } catch (Exception e) {
             AlertManager.showErrorAlert("Ошибка соединения", "");

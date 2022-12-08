@@ -75,4 +75,19 @@ public class User implements Serializable {
         result = 31 * result + userType.hashCode();
         return result;
     }
+
+    public void setSurame(String credential) {
+    }
+
+    public void setName(String credential) {
+    }
+
+    public void setPatronymic(String credential) {
+    }
+
+    public void setMail(String mail) {
+    }
+
+    public void setCountry(String country) {
+    }
 }
